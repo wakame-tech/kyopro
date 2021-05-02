@@ -1,12 +1,13 @@
 # kyopro
 ## requirements
+Python 3.8.2
 ```py
 pip install -r requirements.txt
 ```
 
 ## setup
 ```py
-$ python submit.py setup <contest> --problems [abcxxx_a, ...]
+$ python submit.py setup --contest <contest> --problems [abcxxx_a, ...]
 ```
 
 ## test
