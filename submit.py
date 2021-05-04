@@ -51,13 +51,17 @@ class Cli(object):
 
     # set up directories
     # $submit.py --problems [abcxxx_a,abcxxx_b,abcxxx_c,abcxxx_d,abcxxx_e,abcxxx_f]
-    def setup(self, problems: list = []):
+    def setup(self):
         contest_root = Path(os.getcwd())
         problems_path = contest_root / 'problems.txt'
         if problems_path.exists():
+            print(f'{problems_path} found')
             urls = self._prepare_from_file(problems_path)
         else:
-            urls = self._prepare_urls(contest_root.parts[-1], problems)
+            assert(len(get_rel_path().parts) == 2)
+            contest = contest_root.parts[-1]
+            urls = self._prepare_urls(contest, ['b', 'c', 'd'])
+            print(f'{contest=} {urls=}')
 
         for url in urls:
             problem = get_problem_name(url)
@@ -72,10 +76,10 @@ class Cli(object):
             sh(f'touch {problem_root / "main.py"}')
             sh(f'oj dl -d {test_dir} {url}')
 
-    def test(self, error: str = '', entry: str = 'main.py', tle: str = '2'):
+    def test(self, error: str = '', exec: str = 'python main.py', tle: str = '2'):
         if error:
             error = f'-e {error}'
-        sh(f'oj t -N {error} -t {tle} -c "python {entry}"')
+        sh(f'oj t -N {error} -t {tle} -c "{exec}"')
 
     def submit(self, entry: str = 'main.py'):
         contest, problem = get_contest_problem_name()
