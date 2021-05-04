@@ -1,31 +1,28 @@
 d, n = map(int, input().split())
-t = []
-for i in range(d):
-    t.append(int(input()))
+tmps = [int(input()) for _ in range(d)]
+conds = [list(map(int, input().split())) for _ in range(n)]
 
-cond = []
-for i in range(n):
-    a, b, c = map(int, input().split())
-    cond.append((a, b, c))
+def solve(tmps, conds):
+    days = len(tmps)
+    cloths = len(conds)
+    # dp[days][cloth]: days日目にclothを着たときの絶対値
+    dp = [[0 for _ in range(cloths)] for __ in range(days + 1)]
 
-def dbg(dp):
-    for i in range(d + 1):
-        print(dp[i])
+    def valid(d, i):
+        return conds[i][0] <= tmps[d] <= conds[i][1]
 
-dp = [[0 for _ in range(n)] for __ in range(d + 1)]
+    for d in range(1, days):
+        for i in range(cloths):
+            # 服 i と 服 j
+            if not valid(d - 1, i):
+                continue
+            for j in range(cloths):
+                # 着れるなら
+                if not valid(d, j):
+                    continue
+                dlt = abs(conds[i][2] - conds[j][2])
+                dp[d + 1][j] = max(dp[d + 1][j], dp[d][i] + dlt)
 
-for k in range(n):
-    if cond[k][0] <= t[0] <= cond[k][1]:
-        dp[0][k] = cond[k][2]
+    return max(dp[days])
 
-for i in range(1, d + 1):
-    for j in range(n):
-        m = 0
-        for k in range(n):
-            if cond[k][0] <= t[i] <= cond[k][1]:
-                m = max(m, dp[i][j] + abs(dp[i][j] - cond[k][2]))
-        dp[i + 1][j] = m
-
-# dbg(dp)
-
-print(max(dp[d - 1]))
+print(solve(tmps, conds))
