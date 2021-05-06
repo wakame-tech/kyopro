@@ -1,4 +1,6 @@
-# pvc004
+# Pukai Virtual Contest #004
+21:30-23:10(100min), 灰-灰-灰-灰-灰-茶-茶-茶
+
 ## problems
 ```
 https://atcoder.jp/contests/code-festival-2016-qualb/tasks/codefestival_2016_qualB_b
