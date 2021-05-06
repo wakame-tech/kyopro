@@ -7,28 +7,26 @@ import re
 
 root = path.abspath(path.dirname(__file__))
 
+# 'https://atcoder.jp/contests/abc055/tasks/abc055_b' -> 'abc_055_b'
 def get_problem_name(url: str):
     matches = re.match(r'https:\/\/atcoder.jp\/contests\/.*\/tasks\/(.*)', url)
     return matches.group(1)
 
+# @ 'src/xxx/abc055_b' -> '(abc_055, abc055_b)'
+def get_contest_problem_name():
+    rel = get_rel_path()
+    assert len(rel.parts) == 3, "run @ src/<contest>/<problem>/"
+    problem = rel.parts[-1]
+    contest = problem.split('_')[0]
+    return (contest, problem)
+
+# '(abc_055, abc055_b)' -> 'https://atcoder.jp/contests/abc055/tasks/abc055_b'
 def get_url(contest: str, problem: str):
     return f'https://atcoder.jp/contests/{contest}/tasks/{problem}'
 
 def get_rel_path():
     pwd = os.getcwd()
     return Path(path.relpath(pwd, root))
-
-def get_contest_problem_name():
-    rel = get_rel_path()
-    assert len(rel.parts) == 3, "run @ src/<contest>/<problem>/"
-    _, contest, problem = rel.parts
-    return (contest, problem)
-
-def get_contest_name():
-    rel = get_rel_path()
-    assert len(rel.parts) == 2, "run @ src/<contest>/"
-    _, contest = rel.parts
-    return contest
 
 def sh(script: str):
     script = script.replace('\\', '\\\\')
@@ -60,7 +58,7 @@ class Cli(object):
         else:
             assert(len(get_rel_path().parts) == 2)
             contest = contest_root.parts[-1]
-            urls = self._prepare_urls(contest, ['b', 'c', 'd'])
+            urls = self._prepare_urls(contest)
             print(f'{contest=} {urls=}')
 
         for url in urls:
@@ -79,10 +77,13 @@ class Cli(object):
     def test(self, error: str = '', exec: str = 'python main.py', tle: str = '2'):
         if error:
             error = f'-e {error}'
+
         sh(f'oj t -N {error} -t {tle} -c "{exec}"')
 
     def submit(self, entry: str = 'main.py'):
         contest, problem = get_contest_problem_name()
+        print(f'{contest=}, {problem=}')
+
         url = get_url(contest, problem)
         sh(f'oj submit -y {url} {entry}')
 
