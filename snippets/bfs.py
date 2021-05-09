@@ -2,12 +2,13 @@ from collections import deque
 
 h, w = map(int, input().split())
 sy, sx = map(int, input().split())
-start = (sx - 1, sy - 1)
 gy, gx = map(int, input().split())
-goal = (gx - 1, gy - 1)
 grid = []
 for i in range(h):
     grid.append(input())
+
+start = (sx - 1, sy - 1)
+goal = (gx - 1, gy - 1)
 
 def bfs(states, w: int, h: int, start, goal):
     """
