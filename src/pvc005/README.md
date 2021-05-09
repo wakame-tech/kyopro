@@ -1,5 +1,7 @@
 # Pukai Virtual Contest #005
-21:30-23:30(120min), 灰-,灰-,灰+,灰+,茶-,茶-,茶+,緑-
+21:00-22:10(70min), 灰+,灰+,灰+,茶-,茶-,茶+
+
+https://kenkoooo.com/atcoder#/contest/show/17a53c4b-b50a-4e95-9d84-1c9679b1aa34
 
 | rank | diff |
 |:--:|:--:|
@@ -16,8 +18,6 @@ https://atcoder.jp/contests/arc106/tasks/arc106_a
 https://atcoder.jp/contests/abc087/tasks/abc087_b
 https://atcoder.jp/contests/ddcc2020-qual/tasks/ddcc2020_qual_b
 https://atcoder.jp/contests/code-festival-2016-quala/tasks/codefestival_2016_quala_b
-https://atcoder.jp/contests/abc096/tasks/abc096_c
 https://atcoder.jp/contests/arc081/tasks/arc081_a
 https://atcoder.jp/contests/arc106/tasks/arc106_b
-https://atcoder.jp/contests/abc174/tasks/abc174_c
 ```

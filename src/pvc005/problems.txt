@@ -1,8 +1,6 @@
 https://atcoder.jp/contests/arc106/tasks/arc106_a
 https://atcoder.jp/contests/abc087/tasks/abc087_b
 https://atcoder.jp/contests/ddcc2020-qual/tasks/ddcc2020_qual_b
-https://atcoder.jp/contests/code-festival-2016-quala/tasks/codefestival_2016_quala_b
-https://atcoder.jp/contests/abc096/tasks/abc096_c
+https://atcoder.jp/contests/code-festival-2016-qualA/tasks/codefestival_2016_qualA_b
 https://atcoder.jp/contests/arc081/tasks/arc081_a
 https://atcoder.jp/contests/arc106/tasks/arc106_b
-https://atcoder.jp/contests/abc174/tasks/abc174_c
