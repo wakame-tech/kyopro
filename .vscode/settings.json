@@ -1,0 +1,10 @@
+{
+    "files.autoSave": "afterDelay",
+    "editor.renderControlCharacters": true,
+    "files.associations": {
+        "*.txt": "plaintext",
+        "vector": "cpp",
+        "chrono": "cpp",
+        "iostream": "cpp"
+    }
+}

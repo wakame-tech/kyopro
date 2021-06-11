@@ -74,13 +74,13 @@ class Cli(object):
             sh(f'touch {problem_root / "main.py"}')
             sh(f'oj dl -d {test_dir} {url}')
 
-    def test(self, error: str = '', exec: str = 'python main.py', tle: str = '2'):
+    def test(self, error: str = '', entry: str = 'julia main.jl', tle: str = '2'):
         if error:
             error = f'-e {error}'
 
-        sh(f'oj t -N {error} -t {tle} -c "{exec}"')
+        sh(f'oj t -N {error} -t {tle} -c "{entry}"')
 
-    def submit(self, entry: str = 'main.py'):
+    def submit(self, entry: str = 'main.jl'):
         contest, problem = get_contest_problem_name()
         print(f'{contest=}, {problem=}')
 

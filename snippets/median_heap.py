@@ -22,6 +22,7 @@ class MedianHeap:
             heapq.heapify(self.min_heap)
 
     def add(self, num: int):
+        """ O(logN) """
         if not self.max_heap and not self.min_heap:
             heapq.heappush(self.min_heap, num)
             return
@@ -51,7 +52,7 @@ class MedianHeap:
                 heapq.heappush(self.max_heap, -num)
 
     def median(self) -> float:
-        # rtype: float
+        """ O(1) """
         if len(self.max_heap) == len(self.min_heap):
             return (-self.max_heap[0] + self.min_heap[0]) / 2
         elif len(self.max_heap) > len(self.min_heap):
