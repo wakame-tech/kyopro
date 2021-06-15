@@ -94,3 +94,6 @@ or
 ```
 
 </details>
+
+# TODOs
+- [ ] submit shortcut on Mac

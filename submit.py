@@ -31,7 +31,7 @@ def get_rel_path():
 def sh(script: str):
     script = script.replace('\\', '\\\\')
     print(script)
-    subprocess.call(script)
+    subprocess.call(script, shell=True)
 
 class Cli(object):
     def _prepare_urls(self, contest: str, problem_set = ['a', 'b', 'c', 'd', 'e', 'f']):
