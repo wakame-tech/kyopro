@@ -10,7 +10,8 @@
             "args": [
                 "\"${fileDirname}\"",
                 "&&",
-                "/Users/kamata/.pyenv/shims/python",
+                // "/Users/kamata/.pyenv/shims/python",
+                "python",
                 "\"${workspaceRoot}${pathSeparator}submit.py\"",
                 "test"
             ],
@@ -26,7 +27,8 @@
             "args": [
                 "\"${fileDirname}\"",
                 "&&",
-                "/Users/kamata/.pyenv/shims/python",
+                "python",
+                // "/Users/kamata/.pyenv/shims/python",
                 "\"${workspaceRoot}${pathSeparator}submit.py\"",
                 "submit"
             ],
