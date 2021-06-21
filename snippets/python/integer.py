@@ -1,6 +1,5 @@
 import math
 from functools import reduce
-from collections import Counter
 
 def divisors(n: int) -> list:
     """
@@ -14,6 +13,19 @@ def divisors(n: int) -> list:
                 res.append(q)
     
     return res
+
+
+def ks_in_range(a: int, b: int, k: int):
+    """
+    count mult of k in [a, b]
+    """
+    r = a % k
+    m = a - r
+    answer = (b - m) // k + 1
+    if r > 0:
+        answer -= 1
+    return answer
+
 
 def prime_factorize(n: int) -> list:
     """
@@ -34,17 +46,20 @@ def prime_factorize(n: int) -> list:
         a.append(n)
     return a
 
+
 def lcm(x: int, y: int) -> int:
     """
     最小公倍数
     """
     return (x * y) // math.gcd(x, y)
 
+
 def gcds(arr: list) -> int:
     """
     multi gcd
     """
     return reduce(math.gcd, arr)
+
 
 def lcms(arr: list) -> int:
     return reduce(lcm, arr, 1)

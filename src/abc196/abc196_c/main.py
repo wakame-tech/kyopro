@@ -1,12 +1,13 @@
 n = int(input())
 
 def solve(n):
-    if n < 10:
-        print(0)
-    else:
-        k = len(str(n)) // 2
-        # n: strstr -> k * 10 ** (n // 2) + k
-        t = int(str(n)[0:k])
-        return t if t <= int(str(n)[k:]) else t - 1
+    k = len(str(n)) // 2
+
+    cnt = 0
+    for i in range(1, 10 ** (k + 1)):
+        if int(str(i) * 2) <= n:
+            cnt += 1
+
+    return cnt
 
 print(solve(n))
