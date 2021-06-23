@@ -7,6 +7,12 @@ import re
 
 root = path.abspath(path.dirname(__file__))
 
+langs = {
+    'python': ['main.py', 'python main.py'],
+    'ruby': ['main.rb', 'ruby main.rb'],
+}
+lang = 'python'
+
 # 'https://atcoder.jp/contests/abc055/tasks/abc055_b' -> 'abc_055_b'
 def get_problem_name(url: str):
     matches = re.match(r'https:\/\/atcoder.jp\/contests\/.*\/tasks\/(.*)', url)
@@ -34,7 +40,7 @@ def sh(script: str):
     subprocess.call(script, shell=True)
 
 class Cli(object):
-    def _prepare_urls(self, contest: str, problem_set = ['a', 'b', 'c', 'd', 'e', 'f']):
+    def _prepare_urls(self, contest: str, problem_set = ['1', '2']):
         urls = []
         for problem in problem_set:
             urls.append(get_url(contest, f'{contest}_{problem}'))
@@ -74,18 +80,18 @@ class Cli(object):
             sh(f'touch {problem_root / "main.py"}')
             sh(f'oj dl -d {test_dir} {url}')
 
-    def test(self, error: str = '', entry: str = 'python main.py', tle: str = '2'):
+    def test(self, error: str = '', entry: str = langs[lang][1], tle: str = '2'):
         if error:
             error = f'-e {error}'
 
         sh(f'oj t -N {error} -t {tle} -c "{entry}"')
 
-    def submit(self, entry: str = 'main.py'):
+    def submit(self, entry: str = langs[lang][0]):
         contest, problem = get_contest_problem_name()
         print(f'{contest=}, {problem=}')
 
         url = get_url(contest, problem)
-        sh(f'oj submit -y {url} {entry}')
+        sh(f'oj submit -w 0 -y --guess-python-interpreter pypy {url} {entry}')
 
     def dl(self):
         contest, problem = get_contest_problem_name()
