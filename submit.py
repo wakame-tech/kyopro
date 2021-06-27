@@ -9,9 +9,11 @@ root = path.abspath(path.dirname(__file__))
 
 langs = {
     'python': ['main.py', 'python main.py'],
+    'julia': ['main.jl', 'julia main.jl'],
     'ruby': ['main.rb', 'ruby main.rb'],
 }
-lang = 'python'
+lang = 'julia'
+problem_set_abc = ['a', 'b', 'c', 'd', 'e', 'f']
 
 # 'https://atcoder.jp/contests/abc055/tasks/abc055_b' -> 'abc_055_b'
 def get_problem_name(url: str):
@@ -40,7 +42,7 @@ def sh(script: str):
     subprocess.call(script, shell=True)
 
 class Cli(object):
-    def _prepare_urls(self, contest: str, problem_set = ['1', '2']):
+    def _prepare_urls(self, contest: str, problem_set = problem_set_abc):
         urls = []
         for problem in problem_set:
             urls.append(get_url(contest, f'{contest}_{problem}'))
