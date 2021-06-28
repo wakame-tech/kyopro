@@ -1,39 +1,17 @@
-using LinearAlgebra
-using Statistics
-
-const Pos = Vector{Float64}
-
-function barycenter(poses::Vector{Pos})::Pos
-    # poses: List[np.ndarray] の重心
-    return mean(poses)
-end
-
-
-function rot(p::Pos, theta::Float64)::Pos
-    # 点 p: np.ndarray(2x1) を 点 c: np.ndarray(2x1) を中心に theta[rad] 回転する
-    r = [
-        cos(theta) -sin(theta)
-        sin(theta) cos(theta)
-    ]
-    return r * p
-end
-
-
-function match(n::Int, s::Vector{Pos}, t::Vector{Pos})::Bool
-    first_non_zero_index = findfirst(e -> !all(e .≈ zeros(size(e))), s)
-
-    if isnothing(first_non_zero_index)
-        return all(map(e -> e .≈ [0.0, 0.0], t))
+function match(n::Int, s::Vector{ComplexF64}, t::Vector{ComplexF64})::Bool
+    if all(angle.(s) .≈ 0)
+        return all(s .≈ t)
     end
 
     for i in 1:n
-        # assume s[0] map to t[i] by rotating θ
-        theta = atan(t[i][2], t[i][1]) - atan(s[first_non_zero_index][2], s[first_non_zero_index][1])
+        # assume s[1] |-> t[i]
+        θ = angle(t[i] / s[1])
+        
         res = true
         for j in 1:n
             # s[j] -> ∃t[k]
-            sj = rot(s[j], theta)
-            res &= any(t .|> tk -> all(sj .≈ tk))
+            sj = (cos(θ) + im * sin(θ)) * s[j]
+            res &= any(t .|> tk -> sj .≈ tk)
         end
         
         if res
@@ -44,29 +22,30 @@ function match(n::Int, s::Vector{Pos}, t::Vector{Pos})::Bool
     return false
 end
 
-
-function solve(n::Int, s::Vector{Pos}, t::Vector{Pos})::Bool
-    sg, tg = barycenter(s), barycenter(t)
-    s, t = map(e -> e .- sg, s), map(e -> e .- tg, t)
-    return match(n, s, t)
+function sort_by_angle(ps::Vector{ComplexF64})::Vector{ComplexF64}
+    g = sum(ps) / length(ps)
+    (ps .- g) # |> ps -> sort(ps, by=e -> angle(e))
 end
 
+read_int = readline() |> s -> parse(Int, s)
+read_ints = readline() |> split .|> e -> parse(Int, e)
 
 function main()
-    n = readline() |> s -> parse(Int, s)
-    s::Vector{Pos} = []
-    t::Vector{Pos} = []
-    for i in 1:n
-        a, b = readline() |> split .|> e -> parse(Int, e)
-        push!(s, vec([a b]))
+    n = read_int()
+    s::Vector{ComplexF64} = []
+    t::Vector{ComplexF64} = []
+    for _ in 1:n
+        a, b = read_ints()
+        push!(s, complex(a, b))
     end
 
-    for i in 1:n
-        c, d = readline() |> split .|> e -> parse(Int, e)
-        push!(t, vec([c d]))
+    for _ in 1:n
+        c, d = read_ints()
+        push!(t, complex(c, d))
     end
 
-    println(ifelse(solve(n, s, t), "Yes", "No"))
+    s, t = sort_by_angle(s), sort_by_angle(t)
+    println(ifelse(match(n, s, t), "Yes", "No"))
 end
 
 main()

@@ -1,7 +1,7 @@
 
 function cumsum_1d(arr::Vector{T})::Vector{T} where {T}
     s = [0]
-    for i in 0:length(arr)
+    for i in 1:length(arr)
         push!(s, s[i] + arr[i])
     end
     return s

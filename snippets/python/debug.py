@@ -9,5 +9,6 @@ def debug(func):
 def f(x):
     return x ** 2
 
-f(2)
-f(5)
+if __name__ == "__main__":
+    f(2)
+    f(5)

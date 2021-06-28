@@ -1,6 +1,6 @@
 # 参考: <https://tjkendev.github.io/procon-library/python/min_cost_flow/primal-dual.html>
 # from dataclasses import dataclass
-from typing import List
+from typing import List, Union
 from heapq import heappush, heappop
 
 # @dataclass
@@ -45,7 +45,7 @@ class MinCostFlow:
         res = 0
         h = [0] * self.n
         prv_v = [0] * self.n
-        prv_e: List[Edge] = [None] * self.n
+        prv_e: List[Union[Edge, None]] = [None] * self.n
         d0 = [self.inf] * self.n
         dist = [self.inf] * self.n
 
