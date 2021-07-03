@@ -1,4 +1,6 @@
+import math
+
 n = int(input())
 a = list(map(int, input().split()))
 
-print((sum(a) // n) + 1)
+print(math.ceil(sum(a) / sum(e != 0 for e in a)))

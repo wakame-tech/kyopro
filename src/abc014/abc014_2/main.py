@@ -1,4 +1,16 @@
 n, x = list(map(int, input().split()))
 a = list(map(int, input().split()))
-bits = list(map(int, list(str(bin(x))[2:].ljust(n, '0'))))
-print(sum([a[i] * bits[i] for i in range(n)]))
+
+if x == 0:
+    print(0)
+    exit()
+
+ans = 0
+i = 0
+while x != 0:
+    if x % 2 == 1:
+        ans += a[i]
+    i += 1
+    x //= 2
+
+print(ans)

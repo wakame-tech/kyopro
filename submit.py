@@ -12,7 +12,7 @@ langs = {
     'julia': ['main.jl', 'julia main.jl'],
     'ruby': ['main.rb', 'ruby main.rb'],
 }
-lang = 'julia'
+lang = 'python'
 problem_set_abc = ['a', 'b', 'c', 'd', 'e', 'f']
 
 # 'https://atcoder.jp/contests/abc055/tasks/abc055_b' -> 'abc_055_b'
@@ -55,6 +55,10 @@ class Cli(object):
                 urls.append(line.strip())
         return urls
 
+    def _include_directive(self, file_path, directive):
+        with open(file_path, 'r') as f:
+            return directive in f.read()
+
     # set up directories
     # $submit.py --problems [abcxxx_a,abcxxx_b,abcxxx_c,abcxxx_d,abcxxx_e,abcxxx_f]
     def setup(self):
@@ -82,18 +86,27 @@ class Cli(object):
             sh(f'touch {problem_root / "main.py"}')
             sh(f'oj dl -d {test_dir} {url}')
 
-    def test(self, error: str = '', entry: str = langs[lang][1], tle: str = '2'):
-        if error:
-            error = f'-e {error}'
+    def test(self, entry: str = langs[lang][1], tle: str = '2'):
+        problem_root = Path(os.getcwd())
+        error = ''
+        if self._include_directive(problem_root / langs[lang][0], '# error'):
+            error = f'-e 1e-6'
+            print('[Note] error=1e-6')
 
         sh(f'oj t -N {error} -t {tle} -c "{entry}"')
 
     def submit(self, entry: str = langs[lang][0]):
+        problem_root = Path(os.getcwd())
         contest, problem = get_contest_problem_name()
         print(f'{contest=}, {problem=}')
 
+        # numpy check
+        using_numpy = lang == 'python' and self._include_directive(problem_root / langs[lang][0], 'numpy')
+        if using_numpy:
+            print('[Note] Submit with Python due to using numpy.')
+
         url = get_url(contest, problem)
-        sh(f'oj submit -w 0 -y --guess-python-interpreter pypy {url} {entry}')
+        sh(f'oj submit -w 0 -y {"--guess-python-interpreter pypy" if not using_numpy else ""} {url} {entry}')
 
     def dl(self):
         contest, problem = get_contest_problem_name()

@@ -1,10 +1,8 @@
-k,s = list(map(int, input().split()))
-k = k + 1
+k, s = list(map(int, input().split()))
 ans = 0
-for i in range(k):
-    for j in range(k):
-        for l in range(k):
-            if i + j + l == s:
-                ans += 1
+for i in range(k + 1):
+    for j in range(k + 1):
+        if 0 <= s - (i + j) <= k:
+            ans += 1
 
 print(ans)

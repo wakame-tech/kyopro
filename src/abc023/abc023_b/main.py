@@ -2,17 +2,21 @@ n = int(input())
 s = input()
 
 def solve(s):
-    i = len(s) // 2
-    d = 1
-    if s[i] != 'b':
-        return -1
+    t = 'b'
+    i = 0
+    if s == t:
+        return 0
 
-    while True:
-        if i - d == 0:
-            return i
-        if s[i - d] == 'acb'[(d - 1) % 3] and s[i + d] == 'cab'[(d - 1) % 3]:
-            d += 1
+    while len(t) <= len(s):
+        if i % 3 == 0:
+            t = 'a' + t + 'c'
+        elif i % 3 == 1:
+            t = 'c' + t + 'a'
         else:
-            return -1
+            t = 'b' + t + 'b'
+        if s == t:
+            return i + 1
+        i += 1
+    return -1
 
 print(solve(s))
