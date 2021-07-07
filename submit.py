@@ -13,7 +13,7 @@ langs = {
     'ruby': ['main.rb', 'ruby main.rb'],
 }
 lang = 'python'
-problem_set_abc = ['a', 'b', 'c', 'd', 'e', 'f']
+problem_set_abc = ['a', 'b', 'c', 'd']
 
 # 'https://atcoder.jp/contests/abc055/tasks/abc055_b' -> 'abc_055_b'
 def get_problem_name(url: str):
@@ -56,7 +56,7 @@ class Cli(object):
         return urls
 
     def _include_directive(self, file_path, directive):
-        with open(file_path, 'r') as f:
+        with open(file_path, 'r', encoding='utf-8') as f:
             return directive in f.read()
 
     # set up directories

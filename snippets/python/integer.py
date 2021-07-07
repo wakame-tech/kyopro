@@ -1,4 +1,5 @@
 import math
+from collections import Counter
 from functools import reduce
 
 def divisors(n: int) -> list:
@@ -45,6 +46,16 @@ def prime_factorize(n: int) -> list:
     if n != 1:
         a.append(n)
     return a
+
+def num_of_divisors(n: int) -> int:
+    """
+    約数の個数
+    """
+    d = Counter(prime_factorize(n))
+    res = 1
+    for v in dict.values(d):
+        res *= (v + 1)
+    return res
 
 
 def lcm(x: int, y: int) -> int:
