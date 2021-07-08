@@ -18,7 +18,10 @@ problem_set_abc = ['a', 'b', 'c', 'd']
 # 'https://atcoder.jp/contests/abc055/tasks/abc055_b' -> 'abc_055_b'
 def get_problem_name(url: str):
     matches = re.match(r'https:\/\/atcoder.jp\/contests\/.*\/tasks\/(.*)', url)
-    return matches.group(1)
+    if matches:
+        return matches.group(1)
+    else:
+        return ''
 
 # @ 'src/xxx/abc055_b' -> '(abc_055, abc055_b)'
 def get_contest_problem_name():
@@ -42,7 +45,7 @@ def sh(script: str):
     subprocess.call(script, shell=True)
 
 class Cli(object):
-    def _prepare_urls(self, contest: str, problem_set = problem_set_abc):
+    def _prepare_urls(self, contest: str, problem_set):
         urls = []
         for problem in problem_set:
             urls.append(get_url(contest, f'{contest}_{problem}'))
@@ -61,7 +64,7 @@ class Cli(object):
 
     # set up directories
     # $submit.py --problems [abcxxx_a,abcxxx_b,abcxxx_c,abcxxx_d,abcxxx_e,abcxxx_f]
-    def setup(self):
+    def setup(self, old: bool=False):
         contest_root = Path(os.getcwd())
         problems_path = contest_root / 'problems.txt'
         if problems_path.exists():
@@ -70,7 +73,7 @@ class Cli(object):
         else:
             assert(len(get_rel_path().parts) == 2)
             contest = contest_root.parts[-1]
-            urls = self._prepare_urls(contest)
+            urls = self._prepare_urls(contest, ['1', '2', '3', '4'] if old else problem_set_abc)
             print(f'{contest=} {urls=}')
 
         for url in urls:
