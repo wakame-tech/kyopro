@@ -74,3 +74,26 @@ def gcds(arr: list) -> int:
 
 def lcms(arr: list) -> int:
     return reduce(lcm, arr, 1)
+
+def base_10_to_k(x: int, k: int, ecd = int) -> list:
+    if x // k != 0:
+        return [*base_10_to_k(int(x / k), k, ecd), ecd(x % k)]
+    return [ecd(x % k)]
+
+def base_k_to_10(x, k: int, dcd = int) -> int:
+    out = 0
+    for i in range(1, len(x) + 1):
+        out += dcd(x[-i]) * (k ** (i - 1))
+    return out
+
+def test_base_10_to_k():
+    assert(base_10_to_k(10, 2) == [1, 0, 1, 0])
+    assert(base_10_to_k(10, 2) == [1, 0, 1, 0])
+    to_hex = lambda e: str(e) if 0 <= e < 10 else chr(ord('a') + (e - 10))
+    assert(base_10_to_k(17, 16, to_hex) == ['1', '1'])
+
+    print(base_k_to_10('ff', 16, lambda e: int(f'0x{e}', 0)))
+    assert(base_k_to_10('1111', 2) == 15)
+
+if __name__ == "__main__":
+    test_base_10_to_k()

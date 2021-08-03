@@ -13,7 +13,8 @@ langs = {
     'ruby': ['main.rb', 'ruby main.rb'],
 }
 lang = 'python'
-problem_set_abc = ['a', 'b', 'c', 'd']
+problem_set_abc = ['a', 'b', 'c', 'd', 'e']
+problem_set_typical = ['f']
 
 # 'https://atcoder.jp/contests/abc055/tasks/abc055_b' -> 'abc_055_b'
 def get_problem_name(url: str):
@@ -73,7 +74,8 @@ class Cli(object):
         else:
             assert(len(get_rel_path().parts) == 2)
             contest = contest_root.parts[-1]
-            urls = self._prepare_urls(contest, ['1', '2', '3', '4'] if old else problem_set_abc)
+            problem_set = ['1', '2', '3', '4'] if old else problem_set_abc
+            urls = self._prepare_urls(contest, problem_set)
             print(f'{contest=} {urls=}')
 
         for url in urls:
