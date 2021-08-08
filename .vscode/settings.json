@@ -3,8 +3,12 @@
     "editor.renderControlCharacters": true,
     "files.associations": {
         "*.txt": "plaintext",
+        "*.in": "plaintext",
+        "*.out": "plaintext",
+        "*.arb": "json",
         "vector": "cpp",
         "chrono": "cpp",
-        "iostream": "cpp"
+        "iostream": "cpp",
+        "queue": "cpp"
     }
 }

@@ -1,0 +1,5 @@
+n=int(input())
+a=list(map(int, input().split()))
+a=list(enumerate(a))
+a=sorted(a, key=lambda x:x[1], reverse=True)
+print(a[1][0] + 1)
