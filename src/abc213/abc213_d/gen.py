@@ -3,3 +3,4 @@ with open('test/max.in', 'w') as f:
     print(n, file=f)
     for i in range(1, n):
         print(i, i + 1, file=f)
+    print(n, 1, file=f)

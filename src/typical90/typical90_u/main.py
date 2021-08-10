@@ -1,6 +1,7 @@
-# 参考: <https://mirucacule.hatenablog.com/entry/2020/05/21/124026>
 from typing import List, Tuple
 from heapq import heappush, heappop
+import sys
+sys.setrecursionlimit(10 ** 6)
 
 class Graph:
     Inf = 10 ** 9
@@ -129,45 +130,16 @@ class Graph:
         
         return ans
 
-
 if __name__ == "__main__":
-    n, m = 4, 5
-    inputs = [(0, 1, 1), (0, 2, 4), (1, 2, 2), (2, 3, 1), (1, 3, 5)]
-    adj = [[] for _ in range(n)]
-    for s, t, c in inputs:
-        adj[s].append((t, c))
-    
-    dist = Graph.dijkstra(n, adj, 0)
-    assert(dist == [0 ,1, 3, 4])
+    n, m = map(int, input().split())
+    edges = []
+    for _ in range(m):
+        a, b = list(map(int, input().split()))
+        edges.append((a, b))
 
-    costs = [
-        (1, 2, 3),
-        (1, 4, 5),
-        (2, 1, 2),
-        (2, 4, 4),
-        (3, 2, 1),
-        (4, 3, 2),
-    ]
-
-    n = 4
-    g = Graph.adj_mat_from_cost(n, costs)
-    g = Graph.floyd_warshall(n, g)
-    g_true = [[0, 3, 7, 5], [2, 0, 6, 4], [3, 1, 0, 5], [5, 3, 2, 0]]
-    assert(g == g_true)
-
-    n = 9
-    edges = [
-        (1, 2),
-        (2, 7),
-        (7, 1),
-        (4, 2),
-        (5, 4),
-        (9, 5),
-        (6, 9),
-        (4, 6),
-        (6, 8),
-        (8, 3),
-        (3, 8)
-    ]
-
-    assert(Graph.scc(n, edges) == [[3, 4, 8, 5], [2, 7], [0, 6, 1]])
+    sccs = Graph.scc(n, edges)
+    # print(sccs)
+    k = 0
+    for s in sccs:
+        k += len(s) * (len(s) - 1) // 2
+    print(k)
