@@ -54,8 +54,10 @@ class Cli(object):
 
     def _prepare_from_file(self, file_path: Path):
         urls = []
-        with open(file_path) as f:
+        with open(file_path, encoding='utf-8') as f:
             for line in f:
+                if line.startswith('#'):
+                    continue
                 urls.append(line.strip())
         return urls
 
@@ -86,10 +88,10 @@ class Cli(object):
                 os.mkdir(problem_root)
             if not test_dir.exists():
                 os.mkdir(test_dir)
+                sh(f'oj dl -d {test_dir} {url}')
 
             # setup
             sh(f'touch {problem_root / "main.py"}')
-            sh(f'oj dl -d {test_dir} {url}')
 
     def test(self, entry: str = langs[lang][1], tle: str = '2'):
         problem_root = Path(os.getcwd())

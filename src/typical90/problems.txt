@@ -1,7 +1,24 @@
+# 001 - ★4
 https://atcoder.jp/contests/typical90/tasks/typical90_a
+# 002 - ★3
+https://atcoder.jp/contests/typical90/tasks/typical90_b
+# 003 - ★4
+https://atcoder.jp/contests/typical90/tasks/typical90_c
+# 004 - ★2
 https://atcoder.jp/contests/typical90/tasks/typical90_d
+# 006 - ★5
 https://atcoder.jp/contests/typical90/tasks/typical90_f
+# 007 - ★3
+https://atcoder.jp/contests/typical90/tasks/typical90_g
+# 008 - ★4
 https://atcoder.jp/contests/typical90/tasks/typical90_h
+# 012 - ★4
 https://atcoder.jp/contests/typical90/tasks/typical90_l
+# 013 - ★5
 https://atcoder.jp/contests/typical90/tasks/typical90_m
+# 021 - ★5
 https://atcoder.jp/contests/typical90/tasks/typical90_u
+# 026 - ★4
+https://atcoder.jp/contests/typical90/tasks/typical90_z
+# 028 - ★4
+https://atcoder.jp/contests/typical90/tasks/typical90_ab
