@@ -22,3 +22,5 @@ https://atcoder.jp/contests/typical90/tasks/typical90_u
 https://atcoder.jp/contests/typical90/tasks/typical90_z
 # 028 - ★4
 https://atcoder.jp/contests/typical90/tasks/typical90_ab
+# 029 - ★5
+https://atcoder.jp/contests/typical90/tasks/typical90_ac
