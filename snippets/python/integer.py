@@ -47,6 +47,20 @@ def prime_factorize(n: int) -> list:
         a.append(n)
     return a
 
+
+def eratosthenes(n: int):
+    """
+    2..N までの素因数の種類数を記録する
+    O(n log log n)
+    """
+    c = [0] * (n + 1)
+    for i in range(2, n + 1):
+        if c[i] == 0:
+            for j in range(i, n + 1, i):
+                c[j] += 1
+    return c
+
+
 def num_of_divisors(n: int) -> int:
     """
     約数の個数

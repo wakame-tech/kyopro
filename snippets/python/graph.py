@@ -1,5 +1,5 @@
 # 参考: <https://mirucacule.hatenablog.com/entry/2020/05/21/124026>
-from typing import List, Tuple
+from typing import List, Tuple, Union
 from heapq import heappush, heappop
 from collections import deque
 
@@ -82,58 +82,45 @@ def scc(n: int, edges: List[Tuple[int, int]]):
     <https://www.slideshare.net/hcpc_hokudai/study-20150107>
     <https://pione.hatenablog.com/entry/2021/03/11/232159>
     """
-    label = {i: -1 for i in range(n)}
+    import sys
+    sys.setrecursionlimit(10 ** 7)
+
+    g = adj_list_from_edges(n, edges, True)
+    g_t = adj_list_from_edges(n, [(t, f) for f, t in edges], True)
+
+    order = []
+    visited = [False] * n
+    group_indice: List[Union[int, None]] = [None] * n
 
     def dfs(s: int):
-        # print(s)
-        for i in adj[s]:
-            if not dfs.visited[i]:
-                dfs.visited[i] = True
-                dfs(i)
+        visited[s] = True
+        for t in g[s]:
+            if not visited[t]:
+                dfs(t)
+        order.append(s)
 
-                label[i] = dfs.cnt
-                dfs.cnt += 1
+    def rdfs(s: int, cnt: int):
+        group_indice[s] = cnt
+        visited[s] = True
+        for t in g_t[s]:
+            if not visited[t]:
+                rdfs(t, cnt)
 
-    dfs.cnt = 0
-    dfs.visited = [False] * n
-
-    def dfs2(s: int):
-        dfs2.ans.append(s)
-        for i in inv_adj[s]:
-            if not dfs2.visited[i]:
-                dfs2.visited[i] = True
-                dfs2(i)
-
-    dfs2.visited = [False] * n
-
-    # ステップ1: 帰りがけ順に番号ふる
-    adj = adj_list_from_edges(n, edges, True)
+    # step 1. 帰りがけ順に順番を記録
     for i in range(n):
-        if dfs.visited[i]:
-            continue
+        if not visited[i]:
+            dfs(i)
 
-        dfs.visited[i] = True
-        dfs(i)
-        label[i] = dfs.cnt
-        dfs.cnt += 1
+    visited = [0] * n
+    cnt = 0
 
-    # ステップ2: 番号大きい順にDFS
-    inv_edges = [(t, f) for f, t in edges]
-    inv_adj = adj_list_from_edges(n, inv_edges, True)
-    label_swap = {v: k for k, v in label.items()}
-    ans = []
-    for i in reversed(range(n)):
-        if i not in dict.keys(label_swap):
-            continue
-        v = label_swap[i]
-        if dfs2.visited[v]:
-            continue
-        dfs2.ans = []
-        dfs2.visited[v] = True
-        dfs2(v)
-        ans.append(dfs2.ans)
+    # step 2. 後に記録した頂点からDFS
+    for s in reversed(order):
+        if not visited[s]:
+            rdfs(s, cnt)
+            cnt += 1
 
-    return ans
+    return cnt, group_indice
 
 
 def diameter(n: int, g: List[List[int]]):
@@ -158,6 +145,31 @@ def diameter(n: int, g: List[List[int]]):
 
     i = bfs(n, g, 0)[0]
     return bfs(n, g, i)[1]
+
+
+def topological_sort(n: int, edges: List[Tuple[int, int]]):
+    """
+    DAGに対してトポロジカルソートを行う
+    """
+    from collections import defaultdict
+
+    indegs = defaultdict(lambda: 0)
+    outs = defaultdict(lambda: [])
+    for f, t in edges:
+        indegs[t - 1] += 1
+        outs[f - 1].append(t - 1)
+
+    res = []
+    q = deque([i for i in range(n) if indegs[i] == 0])
+    while q:
+        u = q.popleft()
+        res.append(u)
+        for v in outs[u]:
+            indegs[v] -= 1
+            if indegs[v] == 0:
+                q.append(v)
+
+    return res
 
 
 def _test_dijkstra():
@@ -203,7 +215,8 @@ def _test_scc():
         (8, 3),
         (3, 8),
     ]
-    assert scc(n, edges) == [[3, 4, 8, 5], [2, 7], [0, 6, 1]]
+    _, groups = scc(n, edges)
+    assert groups == [2, 2, 1, 0, 0, 0, 2, 1, 0]
 
 
 def _test_diameter():
@@ -216,6 +229,7 @@ def _test_diameter():
     ]
     g = adj_list_from_edges(n, edges)
     assert diameter(n, g) == 3
+
 
 if __name__ == "__main__":
     _test_dijkstra()
