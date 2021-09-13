@@ -12,7 +12,7 @@ langs = {
     'julia': ['main.jl', 'julia main.jl'],
     'ruby': ['main.rb', 'ruby main.rb'],
 }
-lang = 'python'
+lang = 'julia'
 problem_set_abc = ['a', 'b', 'c', 'd', 'e']
 problem_set_typical = ['f']
 

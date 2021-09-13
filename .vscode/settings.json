@@ -9,6 +9,9 @@
         "vector": "cpp",
         "chrono": "cpp",
         "iostream": "cpp",
-        "queue": "cpp"
+        "queue": "cpp",
+        "deque": "cpp",
+        "xstring": "cpp",
+        "ostream": "cpp"
     }
 }
