@@ -72,3 +72,32 @@ end
 function Base.show(io::IO, u::UnionFind)
     println(io, string(u))
 end
+
+ints = () -> readline() |> split .|> s -> parse(Int, s)
+
+# 最小全域木を求める
+function kruskal(n::Int, weighted_edges::Vector{Tuple{Int, Int, Int}})::Int
+    sort!(weighted_edges, by=e -> e[3])
+    uf = UnionFind(n)
+    ans = 0
+    for (f, t, c) in weighted_edges
+        # 非負辺だけ
+        if !union!(uf, f, t)  && c > 0
+            ans += c
+        end
+    end
+    return ans
+end
+
+function main()
+    n, m = ints()
+    edges::Vector{Tuple{Int, Int, Int}} = []
+    for i in 1:m
+        a, b, c = ints()
+        push!(edges, (a, b, c))
+    end
+    ans = kruskal(n, edges)
+    print(ans)
+end
+
+main()

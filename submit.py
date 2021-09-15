@@ -13,6 +13,7 @@ langs = {
     'ruby': ['main.rb', 'ruby main.rb'],
 }
 lang = 'julia'
+TLE = 2 #s
 problem_set_abc = ['a', 'b', 'c', 'd', 'e']
 problem_set_typical = ['f']
 
@@ -93,7 +94,7 @@ class Cli(object):
             # setup
             sh(f'touch {problem_root / "main.py"}')
 
-    def test(self, entry: str = langs[lang][1], tle: str = '2'):
+    def test(self, entry: str = langs[lang][1], tle: str = f'{TLE}'):
         problem_root = Path(os.getcwd())
         error = ''
         if self._include_directive(problem_root / langs[lang][0], '# error'):
