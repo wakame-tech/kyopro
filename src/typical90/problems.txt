@@ -45,3 +45,7 @@ https://atcoder.jp/contests/typical90/tasks/typical90_ay
 https://atcoder.jp/contests/typical90/tasks/typical90_bd
 # 058 - ★4
 https://atcoder.jp/contests/typical90/tasks/typical90_bf
+# 060 - ★5
+https://atcoder.jp/contests/typical90/tasks/typical90_bh
+# 063 - ★4
+https://atcoder.jp/contests/typical90/tasks/typical90_bk
