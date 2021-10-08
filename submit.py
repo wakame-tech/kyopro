@@ -1,9 +1,10 @@
-from pathlib import Path
 import os
 import os.path as path
-import subprocess
-import fire
 import re
+import subprocess
+from pathlib import Path
+
+import fire
 
 root = path.abspath(path.dirname(__file__))
 
@@ -13,7 +14,7 @@ langs = {
     'ruby': ['main.rb', 'ruby main.rb'],
 }
 lang = 'python'
-TLE = 2 #s
+TLE = 5 #s
 problem_set_abc = ['a', 'b', 'c', 'd', 'e']
 problem_set_typical = ['f']
 
