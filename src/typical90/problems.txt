@@ -57,9 +57,13 @@ https://atcoder.jp/contests/typical90/tasks/typical90_bp
 https://atcoder.jp/contests/typical90/tasks/typical90_br
 # 072
 https://atcoder.jp/contests/typical90/tasks/typical90_bt
-
-https://atcoder.jp/contests/typical90/tasks/typical90_bu
 # 073
 https://atcoder.jp/contests/typical90/tasks/typical90_bu
 # 081
 https://atcoder.jp/contests/typical90/tasks/typical90_cc
+# 085
+https://atcoder.jp/contests/typical90/tasks/typical90_cg
+# 086
+https://atcoder.jp/contests/typical90/tasks/typical90_ch
+# 087
+https://atcoder.jp/contests/typical90/tasks/typical90_ci
