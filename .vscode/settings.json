@@ -13,5 +13,11 @@
         "deque": "cpp",
         "xstring": "cpp",
         "ostream": "cpp"
+    },
+    "[python]": {
+        "editor.tabSize": 4
+    },
+    "[julia]": {
+        "editor.tabSize": 4
     }
 }
